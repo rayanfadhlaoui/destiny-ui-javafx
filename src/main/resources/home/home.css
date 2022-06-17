@@ -1,0 +1,11 @@
+.Label {
+    -fx-alignment: center;
+}
+
+#login {
+    -fx-alignment: center;
+}
+
+#password {
+    -fx-alignment: center;
+}
