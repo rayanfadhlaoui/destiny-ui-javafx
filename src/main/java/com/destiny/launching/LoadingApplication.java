@@ -1,5 +1,6 @@
 package com.destiny.launching;
 
+import com.destiny.DestinyUiApplication;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;

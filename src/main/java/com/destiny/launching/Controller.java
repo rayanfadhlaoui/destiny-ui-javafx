@@ -7,13 +7,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
+import javafx.scene.text.Text;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class Controller {
@@ -23,12 +20,23 @@ public class Controller {
     @FXML
     private PasswordField password;
 
-//    @Autowired
-//    private LoginService loginService;
+    @FXML
+    private Text errorMessage;
 
-    public void login(ActionEvent e) throws IOException {
-//        UserDto user = loginService.login(username.getText(), password.getText());
-//        System.out.println(user.getId());
+    private final LoginService loginService;
+
+    public Controller(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
+    public void login(ActionEvent e) {
+        try {
+            Optional<UserDto> user = loginService.login(username.getText(), password.getText());
+            user.map(UserDto::getId)
+                    .ifPresentOrElse(System.out::println, () -> errorMessage.setText("login or password incorrect"));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
 //        Parent root = FXMLLoader.load(getClass().getResource("newgame/newGame.fxml"));
 //        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
 //        Scene scene = stage.getScene();

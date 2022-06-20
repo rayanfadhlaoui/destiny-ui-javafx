@@ -1,4 +1,4 @@
-package com.destiny.launching;
+package com.destiny;
 
 import com.destiny.launching.LoadingApplication;
 import javafx.application.Application;

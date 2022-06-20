@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -22,15 +23,23 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
     @Value("classpath:/home/home.css")
     private Resource homeCssResource;
 
+    private final ApplicationContext applicationContext;
+
+    public StageInitializer(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+
     @Override
     public void onApplicationEvent(StageReadyEvent event) {
         try {
-            Parent parent = new FXMLLoader(homePageResource.getURL()).load();
+            FXMLLoader fxmlLoader = new FXMLLoader(homePageResource.getURL());
+            fxmlLoader.setControllerFactory(applicationContext::getBean);
+            Parent parent = fxmlLoader.load();
             Stage stage = event.getStage();
             Scene scene = new Scene(parent);
             scene.getStylesheets().add(homeCssResource.getURL().toExternalForm());
-            stage.setFullScreen(true);
-            stage.setResizable(false);
+//            stage.setFullScreen(true);
+//            stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             stage.setScene(scene);

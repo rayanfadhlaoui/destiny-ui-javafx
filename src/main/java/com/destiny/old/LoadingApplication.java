@@ -1,3 +1,5 @@
+package com.destiny.old;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
