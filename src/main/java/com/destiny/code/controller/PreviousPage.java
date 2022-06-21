@@ -1,4 +1,4 @@
-package com.destiny.old;
+package com.destiny.code.controller;
 
 import javafx.scene.Parent;
 

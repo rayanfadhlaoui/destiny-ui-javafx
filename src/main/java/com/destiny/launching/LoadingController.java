@@ -1,20 +1,16 @@
 package com.destiny.launching;
 
+import com.destiny.code.controller.Controller;
 import com.destiny.code.login.LoginService;
 import com.destiny.code.login.UserDto;
-import com.destiny.old.PreviousPage;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +18,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 @Component
-public class Controller {
+public class LoadingController extends Controller {
 
     @Value("classpath:/home/home.fxml")
     private Resource homePageResource;
@@ -40,7 +36,8 @@ public class Controller {
 
     private final LoginService loginService;
 
-    public Controller(LoginService loginService) {
+    public LoadingController(LoginService loginService, ApplicationContext applicationContext) {
+        super(applicationContext);
         this.loginService = loginService;
     }
 
@@ -61,15 +58,7 @@ public class Controller {
 
     private void loadHomePage(ActionEvent e) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(homePageResource.getURL());
-            Parent root = fxmlLoader.load();
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            Scene scene = stage.getScene();
-            scene.getStylesheets().add(homeCssResource.getURL().toExternalForm());
-            PreviousPage.setParent(scene.getRoot());
-            scene.setRoot(root);
-            stage.setScene(scene);
-            stage.show();
+            loadPage(homePageResource, homeCssResource, e);
         } catch (IOException ioException) {
             throw new RuntimeException("loading page didnt work");
         }

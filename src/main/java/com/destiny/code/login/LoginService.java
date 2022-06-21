@@ -32,4 +32,8 @@ public class LoginService {
         }
         return Optional.ofNullable(currentUser);
     }
+
+    public UserDto getCurrentUser() {
+        return currentUser;
+    }
 }
