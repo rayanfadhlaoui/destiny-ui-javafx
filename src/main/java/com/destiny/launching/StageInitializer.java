@@ -17,11 +17,11 @@ import java.io.IOException;
 @Component
 public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 
-    @Value("classpath:/home/home_page.fxml")
-    private Resource homePageResource;
+    @Value("classpath:/login/login.fxml")
+    private Resource loginPageResource;
 
-    @Value("classpath:/home/home.css")
-    private Resource homeCssResource;
+    @Value("classpath:/login/login.css")
+    private Resource loginCssResource;
 
     private final ApplicationContext applicationContext;
 
@@ -32,12 +32,12 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
     @Override
     public void onApplicationEvent(StageReadyEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(homePageResource.getURL());
+            FXMLLoader fxmlLoader = new FXMLLoader(loginPageResource.getURL());
             fxmlLoader.setControllerFactory(applicationContext::getBean);
             Parent parent = fxmlLoader.load();
             Stage stage = event.getStage();
             Scene scene = new Scene(parent);
-            scene.getStylesheets().add(homeCssResource.getURL().toExternalForm());
+            scene.getStylesheets().add(loginCssResource.getURL().toExternalForm());
 //            stage.setFullScreen(true);
 //            stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);

@@ -1,5 +1,6 @@
-package com.destiny.old;
+package com.destiny.ui.home;
 
+import com.destiny.old.PreviousPage;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

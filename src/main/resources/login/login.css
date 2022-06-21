@@ -2,6 +2,10 @@
     -fx-alignment: center;
 }
 
-#title {
+#login {
+    -fx-alignment: center;
+}
+
+#password {
     -fx-alignment: center;
 }
